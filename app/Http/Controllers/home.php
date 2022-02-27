@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categorymodel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -10,8 +11,9 @@ class home extends Controller
 {
     //
     public function index(){
-        $res =  DB::table("category")->get();
+//        $res =  DB::table("category")->get();
 
+        $res = categorymodel::all();
         return view("index",compact("res"));
     }
 
@@ -28,7 +30,11 @@ class home extends Controller
         ]);
         Session::flash("success","category insereted");
 
-        DB::table("category")->insert(['title'=>$request->name,'age'=>$request->age]);
+//        DB::table("category")->insert(['title'=>$request->name,'age'=>$request->age]);
+        $category = new categorymodel();
+        $category->title = $request->name;
+        $category->age = $request->age;
+        $category->save();
         return redirect("home/index");
     }
 

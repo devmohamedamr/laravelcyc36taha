@@ -26,12 +26,11 @@ Route::prefix('home')->group(function(){
     route::get("edit/{id}",[\App\Http\Controllers\home::class,"edit"]);
     route::post("update",[\App\Http\Controllers\home::class,"update"]);
 });
-//route::get("/test",);
-//route::get("home/index",[\App\Http\Controllers\home::class,"index"]);
-//
-//route::get("home/add",[\App\Http\Controllers\home::class,'add']);
-//
-//
-//route::post("home/store",[\App\Http\Controllers\home::class,"store"]);
-//
-//route::get("home/delete/{id}",[\App\Http\Controllers\home::class,"delete"]);
+
+Route::prefix('product')->group(function() {
+    route::get("add",[\App\Http\Controllers\product::class,"add"]);
+});
+
+
+Route::resource("country",\App\Http\Controllers\CountryController::class);
+Route::get("getcity/{country_id}",[\App\Http\Controllers\CountryController::class,"getcity"]);
